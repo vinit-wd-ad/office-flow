@@ -83,7 +83,7 @@ export default function EmpLayout({ children }) {
                             label="My Attendance"
                         />
 
-                        <SidebarItem
+                        {/* <SidebarItem
                             icon="📅"
                             label="My Leave"
                         />
@@ -96,7 +96,7 @@ export default function EmpLayout({ children }) {
                         <SidebarItem
                             icon="📄"
                             label="Payslips"
-                        />
+                        /> */}
 
                         <SidebarItem
                             to="/employee/profile"

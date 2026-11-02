@@ -3,6 +3,7 @@ import EmpAttendanceBanner from "./EmpAttendanceBanner";
 import EmpLayout from "./EmpLayout";
 
 export default function EmployeeDashboard() {
+    const user = JSON.parse(localStorage.getItem("user") || "null");
 
     return (
         <EmpLayout>
@@ -11,7 +12,7 @@ export default function EmployeeDashboard() {
                 {/* Mobile Heading */}
                 <div className="lg:hidden mb-6">
                     <h2 className="text-xl font-semibold">
-                        Good morning, Rahul 👋
+                        Good morning,  {user.name}👋
                     </h2>
 
                     <p className="text-sm text-slate-500 mt-1">
