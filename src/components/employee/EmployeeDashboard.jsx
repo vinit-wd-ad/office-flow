@@ -26,7 +26,7 @@ export default function EmployeeDashboard() {
                 {/* Stats */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
 
-                    <StatCard
+                    {/* <StatCard
                         title="Working Hours"
                         value="06:45"
                         subtitle="Today's total"
@@ -61,7 +61,7 @@ export default function EmployeeDashboard() {
                         icon="📅"
                         iconBg="bg-violet-50"
                         iconColor="text-violet-600"
-                    />
+                    /> */}
 
                 </div>
 

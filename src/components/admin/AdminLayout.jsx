@@ -74,16 +74,19 @@ export default function AdminLayout({ children }) {
                         <SidebarItem icon="➔" to="/admin" label="Dashboard" active />
                         <SidebarItem icon="➔" to="/admin/employee" label="Employees" />
                         <SidebarItem icon="➔" label="Attendance" />
-                        <SidebarItem icon="➔" label="Leave Management" />
+                        {/* <SidebarItem icon="➔" label="Leave Management" /> */}
                         <SidebarItem icon="➔" to="/admin/department" label="Departments" />
-                        <SidebarItem icon="➔" label="Payroll" />
-                        <SidebarItem icon="➔" label="Reports" />
+                        {/* <SidebarItem icon="➔" label="Payroll" />
+                        <SidebarItem icon="➔" label="Reports" /> */}
 
                         <div className="pt-5 pb-2 px-4 text-[11px] uppercase tracking-wider text-slate-500">
                             System
                         </div>
 
                         <SidebarItem icon="⚙" to="/admin/setting" label="Settings" />
+                        {(user.role != 'employee') && (
+                            <SidebarItem icon="➔" to="/employee" label="Switch Panel" />
+                        )}
                     </nav>
 
                     {/* Admin */}

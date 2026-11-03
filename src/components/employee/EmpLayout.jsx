@@ -112,6 +112,9 @@ export default function EmpLayout({ children }) {
                             icon="⚙"
                             label="Settings"
                         />
+                        {(user.role != 'employee') && (
+                            <SidebarItem icon="➔" to="/admin" label="Switch Panel" />
+                        )}
                     </nav>
 
                     {/* Employee */}
