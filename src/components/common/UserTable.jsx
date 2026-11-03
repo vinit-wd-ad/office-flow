@@ -85,6 +85,7 @@ export default function UserTable({ limit = null, className = "" }) {
                             <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Phone</th>
                             <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Position / Department</th>
                             <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Role</th>
+                            <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Attendance</th>
                             <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Joined</th>
                             <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider text-right">Actions</th>
                         </tr>
@@ -185,6 +186,15 @@ function EmployeeRow({
                 </span>
             </td>
 
+            <td className="px-6 py-4 text-gray-500 whitespace-nowrap text-xs">
+                <Link
+                    to={`/admin/attendance/${userId}`}
+                    title="View Profile"
+                    className="capitalize inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 border border-blue-200"
+                >
+                    View
+                </Link>
+            </td>
             <td className="px-6 py-4 text-gray-500 whitespace-nowrap text-xs">{joined}</td>
 
             <td className="px-6 py-4 whitespace-nowrap text-right">
@@ -211,6 +221,6 @@ function EmployeeRow({
                     </Link>
                 </div>
             </td>
-        </tr>
+        </tr >
     );
 }
