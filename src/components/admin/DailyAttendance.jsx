@@ -67,6 +67,7 @@ export default function DailyAttendance() {
                                     <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Out Time</th>
                                     <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Total Hours</th>
                                     <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Approval</th>
+                                    <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Approved By</th>
                                     <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider text-right">Actions</th>
                                 </tr>
                             </thead>

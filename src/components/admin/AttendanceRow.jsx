@@ -6,7 +6,6 @@ export default function AttendanceRow({ item, index, selectedDate, onUpdateSucce
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    // Local editable state for this specific row
     const [formData, setFormData] = useState({
         status: item.status || "absent",
         in_time: item.in_time || "",
@@ -32,7 +31,7 @@ export default function AttendanceRow({ item, index, selectedDate, onUpdateSucce
             const res = await api.put(`attendance/admin-update/${item.user_id}`, payload);
             if (res.data.status) {
                 setIsEditing(false);
-                onUpdateSuccess(); // Refresh parent data
+                onUpdateSuccess();
             }
         } catch (err) {
             console.log("Error updating attendance:", err);
@@ -42,7 +41,6 @@ export default function AttendanceRow({ item, index, selectedDate, onUpdateSucce
         }
     };
 
-    // Helper for status badge styling
     const getStatusBadge = (status) => {
         const styles = {
             present: "bg-emerald-50 text-emerald-700 border-emerald-200",
@@ -54,7 +52,6 @@ export default function AttendanceRow({ item, index, selectedDate, onUpdateSucce
         return styles[status] || "bg-gray-50 text-gray-700 border-gray-200";
     };
 
-    // Helper for approval badge styling
     const getApprovalBadge = (approved) => {
         const styles = {
             approved: "bg-emerald-50 text-emerald-700 border-emerald-200",
@@ -90,7 +87,7 @@ export default function AttendanceRow({ item, index, selectedDate, onUpdateSucce
                     </select>
                 ) : (
                     <span className={`px-2.5 py-1 rounded-full text-xs font-semibold border capitalize inline-block ${getStatusBadge(item.status)}`}>
-                        {item.status || "Absent"}
+                        {item.status || "absent"}
                     </span>
                 )}
             </td>
@@ -146,6 +143,20 @@ export default function AttendanceRow({ item, index, selectedDate, onUpdateSucce
                     <span className={`px-2.5 py-1 rounded-full text-xs font-semibold border capitalize inline-block ${getApprovalBadge(item.approved)}`}>
                         {item.approved || "pending"}
                     </span>
+                )}
+            </td>
+
+            {/* Approved By Column */}
+            <td className="px-6 py-4 whitespace-nowrap text-xs">
+                {item.approved_by ? (
+                    <div>
+                        <p className="font-semibold text-gray-800">{item.approved_by.name}</p>
+                        <span className="capitalize inline-block px-2 py-0.5 text-[10px] font-medium bg-gray-100 text-gray-600 rounded mt-0.5 border border-gray-200">
+                            {item.approved_by.role}
+                        </span>
+                    </div>
+                ) : (
+                    <span className="text-gray-400">-</span>
                 )}
             </td>
 
