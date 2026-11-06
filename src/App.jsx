@@ -13,6 +13,7 @@ import EmpProfileEdit from "./components/employee/EmpProfileEdit";
 import Settings from "./components/admin/Settings";
 import EmpAttendance from "./components/employee/EmpAttendance";
 import Attendance from "./components/admin/Attendance";
+import DailyAttendance from "./components/admin/DailyAttendance";
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/admin/employee/new" element={<EmployeeNew />} />
         <Route path="/admin/employee/edit/:userId" element={<EmployeeNew />} />
         <Route path="/admin/employee/detail/:userId" element={<UserDetail />} />
+        <Route path="/admin/attendance" element={<DailyAttendance />} />
         <Route path="/admin/department" element={<Department />} />
         <Route path="/admin/attendance/:userId" element={<Attendance />} />
 

@@ -73,7 +73,7 @@ export default function AdminLayout({ children }) {
                     <nav className="flex-1 p-4 space-y-1">
                         <SidebarItem icon="➔" to="/admin" label="Dashboard" active />
                         <SidebarItem icon="➔" to="/admin/employee" label="Employees" />
-                        <SidebarItem icon="➔" label="Attendance" />
+                        <SidebarItem icon="➔" to="/admin/attendance" label="Attendance" />
                         {/* <SidebarItem icon="➔" label="Leave Management" /> */}
                         <SidebarItem icon="➔" to="/admin/department" label="Departments" />
                         {/* <SidebarItem icon="➔" label="Payroll" />
