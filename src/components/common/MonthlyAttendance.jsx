@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Breadcrumbs from "../common/Breadcrumbs";
 import api from "../../utils/api";
+import { formatWorkingHours } from "../../utils/formatWorkingHours";
 
 const indianFestivals = {
     "2026-01-26": "Republic Day",
@@ -36,7 +37,7 @@ export default function MonthlyAttendance({ userId = null }) {
         const fetchHistory = async () => {
             try {
                 console.log(userId);
-                
+
                 const endpoint = userId
                     ? `attendance/history?user_id=${encodeURIComponent(userId)}`
                     : "attendance/history";
@@ -345,7 +346,7 @@ export default function MonthlyAttendance({ userId = null }) {
 
                             {info.record.total_working_hours && (
                                 <div className="text-[10px] text-gray-600">
-                                    Hours: {info.record.total_working_hours}
+                                    Hours: {formatWorkingHours(info.record.total_working_hours)}
                                 </div>
                             )}
                         </>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../../utils/api";
+import { formatWorkingHours } from "../../utils/formatWorkingHours";
 
 export default function AttendanceRow({ item, index, selectedDate, onUpdateSuccess }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -138,7 +139,7 @@ export default function AttendanceRow({ item, index, selectedDate, onUpdateSucce
 
             {/* Total Hours */}
             <td className="px-6 py-4 text-gray-600 whitespace-nowrap text-xs font-medium">
-                {item.total_hours ? `${item.total_hours} hrs` : "-"}
+                {formatWorkingHours(item.total_hours)}
             </td>
 
             {/* Approval */}
