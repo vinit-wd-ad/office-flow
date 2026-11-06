@@ -16,6 +16,7 @@ export default function DailyAttendance() {
             setLoading(true);
             const res = await api.get(`attendance/daily?date=${selectedDate}`);
             setAttendanceList(res.data.data || []);
+            console.log(res.data.data);
         } catch (err) {
             console.log("Error:", err);
         } finally {
@@ -62,9 +63,9 @@ export default function DailyAttendance() {
                             <thead className="bg-gray-50 border-b border-gray-200">
                                 <tr>
                                     <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Employee</th>
+                                    <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Role</th>
                                     <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Status</th>
-                                    <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">In Time</th>
-                                    <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Out Time</th>
+                                    <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">In / Out Time</th>
                                     <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Total Hours</th>
                                     <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Approval</th>
                                     <th className="px-6 py-3.5 font-semibold text-xs text-gray-500 uppercase tracking-wider">Approved By</th>

@@ -61,6 +61,19 @@ export default function AttendanceRow({ item, index, selectedDate, onUpdateSucce
         return styles[approved] || "bg-gray-50 text-gray-700 border-gray-200";
     };
 
+    const formatTime12Hour = (timeString) => {
+        if (!timeString) return "-";
+        const [hours, minutes] = timeString.split(":");
+        let h = parseInt(hours, 10);
+        const m = minutes || "00";
+
+        const ampm = h >= 12 ? "PM" : "AM";
+        h = h % 12;
+        h = h ? h : 12;
+
+        return `${h}:${m} ${ampm}`;
+    };
+
     return (
         <tr className="hover:bg-indigo-50/30 transition-colors">
             {/* Employee Info */}
@@ -69,6 +82,12 @@ export default function AttendanceRow({ item, index, selectedDate, onUpdateSucce
                     <p className="font-semibold text-gray-900 hover:text-indigo-600 transition-colors">{item.name}</p>
                     <p className="text-xs text-gray-500">{item.email}</p>
                 </Link>
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap">
+                <span className="text-xs font-semibold capitalize text-gray-600">
+                    {item.position}
+                </span>
+                <p className="text-xs text-gray-500">{item.department}</p>
             </td>
 
             {/* Status */}
@@ -92,8 +111,8 @@ export default function AttendanceRow({ item, index, selectedDate, onUpdateSucce
                 )}
             </td>
 
-            {/* In Time */}
-            <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-600">
+            {/* In /Out  Time */}
+            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                 {isEditing ? (
                     <input
                         type="time"
@@ -103,13 +122,8 @@ export default function AttendanceRow({ item, index, selectedDate, onUpdateSucce
                         className="border border-gray-300 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                 ) : (
-                    item.in_time || "-"
-                )}
-            </td>
-
-            {/* Out Time */}
-            <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-600">
-                {isEditing ? (
+                    item.in_time ? formatTime12Hour(item.in_time) : "-"
+                )} <b>-</b> {isEditing ? (
                     <input
                         type="time"
                         step="1"
@@ -118,7 +132,7 @@ export default function AttendanceRow({ item, index, selectedDate, onUpdateSucce
                         className="border border-gray-300 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                 ) : (
-                    item.out_time || "-"
+                    item.out_time ? formatTime12Hour(item.out_time) : "-"
                 )}
             </td>
 
