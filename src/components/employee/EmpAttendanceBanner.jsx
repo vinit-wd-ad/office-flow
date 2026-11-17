@@ -296,6 +296,21 @@ export default function EmpAttendanceBanner() {
                                     />
                                 </div>
                             )}
+                            {testResult.isInside && (
+                                <div>
+                                    <label className="block text-xs font-medium mb-1 text-white">
+                                        Notes <span className="text-gray-300">(Optional)</span>
+                                    </label>
+                                    <textarea
+                                        value={notes}
+                                        onChange={(e) => setNotes(e.target.value)}
+                                        placeholder="Notes / Remarks . ."
+                                        className="w-full p-2.5 rounded-lg bg-black/20 border border-white/30 text-white placeholder-indigo-200 text-sm focus:outline-none focus:border-white"
+                                        rows="2"
+                                    />
+                                </div>
+                            )}
+                            
 
                             <div>
                                 <label className="block text-xs font-medium mb-1 text-white opacity-75">

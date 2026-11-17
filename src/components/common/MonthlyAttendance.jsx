@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import Breadcrumbs from "../common/Breadcrumbs";
 import api from "../../utils/api";
@@ -36,8 +35,6 @@ export default function MonthlyAttendance({ userId = null }) {
     useEffect(() => {
         const fetchHistory = async () => {
             try {
-                console.log(userId);
-
                 const endpoint = userId
                     ? `attendance/history?user_id=${encodeURIComponent(userId)}`
                     : "attendance/history";
@@ -62,7 +59,7 @@ export default function MonthlyAttendance({ userId = null }) {
         };
 
         fetchHistory();
-    }, []);
+    }, [userId]);
 
     // Calendar Navigation
     const handlePrevMonth = () => {
@@ -282,7 +279,7 @@ export default function MonthlyAttendance({ userId = null }) {
         );
     };
 
-    // Desktop date cell
+    // Desktop date cell (Ab clickable hai)
     const renderDesktopDay = (dayNum) => {
         const info = getDayInfo(dayNum);
 
@@ -299,16 +296,20 @@ export default function MonthlyAttendance({ userId = null }) {
         }
 
         return (
-            <div
+            <button
                 key={info.dateKey}
+                type="button"
+                onClick={() => setSelectedDate(info.dateKey)}
+                aria-label={`View attendance for ${formatDate(info.dateKey)}`}
                 className={`
-                    min-h-28 p-2 rounded-xl border
+                    min-h-28 p-2 rounded-xl border text-left
                     flex flex-col justify-between
+                    cursor-pointer transition hover:shadow-md hover:brightness-[0.98]
                     ${background}
                     ${info.isToday ? "ring-2 ring-indigo-500" : ""}
                 `}
             >
-                <div className="flex items-center justify-between gap-1">
+                <div className="flex items-center justify-between gap-1 w-full">
                     <span className={`
                         text-sm font-bold
                         ${info.isToday
@@ -329,7 +330,7 @@ export default function MonthlyAttendance({ userId = null }) {
                     )}
                 </div>
 
-                <div className="space-y-1 mt-2">
+                <div className="space-y-1 mt-2 w-full">
                     {info.record ? (
                         <>
                             <span className={`inline-block text-[10px] px-1.5 py-0.5 rounded font-medium ${info.status.badge}`}>
@@ -364,7 +365,7 @@ export default function MonthlyAttendance({ userId = null }) {
                         </span>
                     )}
                 </div>
-            </div>
+            </button>
         );
     };
 
@@ -372,7 +373,6 @@ export default function MonthlyAttendance({ userId = null }) {
     const selectedInfo = selectedDate
         ? (() => {
             const [y, m, d] = selectedDate.split("-").map(Number);
-            const dayNum = d;
             const dateKey = selectedDate;
             const record = attendanceMap[dateKey];
             const festival = indianFestivals[dateKey];
@@ -523,14 +523,14 @@ export default function MonthlyAttendance({ userId = null }) {
                 )}
             </div>
 
-            {/* MOBILE DATE DETAILS POPUP */}
+            {/* DATE DETAILS POPUP (Har screen size par open hoga) */}
             {selectedDate && selectedInfo && (
                 <div
-                    className="fixed inset-0 z-[100] bg-black/40 flex items-center justify-center p-4 sm:hidden"
+                    className="fixed inset-0 z-[100] bg-black/40 flex items-center justify-center p-4"
                     onClick={() => setSelectedDate(null)}
                 >
                     <div
-                        className="bg-white w-full max-w-sm rounded-2xl shadow-xl p-5"
+                        className="bg-white w-full max-w-md rounded-2xl shadow-xl p-5"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Popup Header */}
@@ -547,14 +547,14 @@ export default function MonthlyAttendance({ userId = null }) {
 
                             <button
                                 onClick={() => setSelectedDate(null)}
-                                className="w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                className="w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center justify-center"
                                 aria-label="Close popup"
                             >
                                 ✕
                             </button>
                         </div>
 
-                        {/* Status */}
+                        {/* Status & Details */}
                         <div className="border border-gray-200 rounded-xl p-4 space-y-3">
 
                             {selectedInfo.record ? (
@@ -592,8 +592,32 @@ export default function MonthlyAttendance({ userId = null }) {
                                             Working Hours
                                         </span>
                                         <span className="font-semibold text-gray-800">
-                                            {selectedInfo.record.total_working_hours || "-"}
+                                            {selectedInfo.record.total_working_hours
+                                                ? formatWorkingHours(selectedInfo.record.total_working_hours)
+                                                : "-"}
                                         </span>
+                                    </div>
+
+                                    {/* Notes Field */}
+                                    <div className="pt-2 border-t border-gray-100">
+                                        <span className="block text-sm font-medium text-gray-500 mb-1">
+                                            Notes
+                                        </span>
+                                        {selectedInfo.record.attendance_location && selectedInfo.record.attendance_location.length > 0 ? (
+                                            <div className="space-y-2 max-h-40 overflow-y-auto">
+                                                {selectedInfo.record.attendance_location.map((loc, idx) => (
+                                                    <div key={loc.id || idx} className="bg-gray-50 p-2.5 rounded-lg border border-gray-200 text-sm">
+                                                        <p className="text-gray-800">
+                                                            <span className="font-semibold text-xs text-indigo-600">Entry #{idx + 1}:</span> {loc.notes || "No notes for this entry"}
+                                                        </p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <p className="text-sm text-gray-800 bg-gray-50 p-2.5 rounded-lg border border-gray-200">
+                                                No notes available.
+                                            </p>
+                                        )}
                                     </div>
                                 </>
                             ) : selectedInfo.festival ? (
